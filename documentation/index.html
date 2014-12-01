@@ -1,0 +1,39 @@
+---
+layout: documentation
+title: SauceDB
+---
+<h3>Features</h3>
+<ol>
+	<li>Speed</li>
+	<li>Column Value mapping to Enum </li>
+	<li>Works on any object </li>
+	<li>No Code Generation Required </li>
+	<li>Object primary key set on object when inserted </li>
+	<li>Default values set on object when inserted (currently only supported on sql server)</li>
+	<li>No Data Context required </li>
+	<li>Multiple Data store support </li>
+	<li>Full crud with no SQL required </li>
+	<li>Multi Database Support (SqlServer, MySql, Postgre, Sqlite) with a shared API </li>
+	
+	{% include featurelinks.html %}
+</ol>
+
+
+<h3>Assumptions</h3>
+<span>
+	Sauce Makes a several assumptions about your dataacccess, most of them you can change (with overrides)
+</span>
+
+<ol>
+	<li>The object name is the table name with an s (if not on the object name)</li>
+	<li>The table will be located in the default schema</li>
+	<li>A property named id (case insensitive) will be the primary key</li>
+	<li>The property name is the column name</li>
+	<li>The column will always be loaded</li>
+	<li>The column will always be saved</li>
+	<li>All Columns Map to a property</li>
+	<li>All objects will be validated on the schema</li>
+	<li>No column is a foreign key</li>
+	<li>The default value of all fields is null</li>
+	<li>No object requires additional initialization (calculation etc)</li>
+</ol>

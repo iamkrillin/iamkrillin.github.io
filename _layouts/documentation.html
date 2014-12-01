@@ -1,0 +1,54 @@
+---
+layout: default
+---
+
+<div class="navMenu">
+    <ul>
+        <li><h4>Features</h4></li>
+        <li><a href="/documentation">Documentation</a></li>
+        {% include featurelinks.html %}
+        <li><h4>Overrides</h4></li>
+        <li><a href="/documentation/overrides/objectname.html">Object Name</a></li>
+        <li><a href="/documentation/overrides/objectschema.html">Object Schema</a></li>
+        <li><a href="/documentation/overrides/primarykeys.html">Primary Keys</a></li>
+        <li><a href="/documentation/overrides/columnloading.html">Column Loading</a></li>
+        <li><a href="/documentation/overrides/columnsaving.html">Column Savings</a></li>
+        <li><a href="/documentation/overrides/foreignkey.html">Foreign Keys</a></li>
+        <li><a href="/documentation/overrides/defaultvalues.html">Default Values</a></li>
+        <li><h4>Type Mappings</h4></li>
+        <li><a href="/documentation/mappings/sqlserver.html">Sql Server</a></li>
+        <li><a href="/documentation/mappings/mysql.html">MySQL</a></li>
+        <li><a href="/documentation/mappings/postgre.html">Postgre</a></li>
+        <li><a href="/documentation/mappings/sqlite.html">SqLite</a></li>
+        <li><h4>Examples</h4></li>
+        <li><a href="/documentation/examples/crud.html">CRUD</a></li>
+        <li><h4>DB Quirks</h4></li>
+        <li><a href="/documentation/sqlite_quirks.html">SqLite</a></li>
+    </ul>
+</div>
+
+<div class="docContent">
+    {{ content }}
+</div>
+
+<div style="clear: both">&nbsp;</div>
+
+<style type="text/css">
+    .navMenu {
+        float: left;
+        width: 200px;
+    }
+
+    .navMenu li {
+        list-style: none;
+    }
+
+    .navMenu li a {
+        margin-left: 20px;
+    }
+
+    .docContent {
+        float: left;
+        margin-left: 20px;
+    }
+</style>
