@@ -1,4 +1,23 @@
 ---
 layout: documentation
-title: SauceDB
+title: Query Predicates
 ---
+<h3>Query Predicates</h3>
+<span style="margin-bottom: 20px;">
+	With sauce you can speicfy a query predicate, this is automatically added to all linq queries for a particular type<br />
+	You can specify more than one per object
+</span>
+{% highlight csharp %}
+public class TestItemWithPredicate
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public bool IsDeleted { get; set; }
+
+    [QueryPredicate]
+    private static IQueryable<TestItemWithPredicate> QueryPredicate(IQueryable<TestItemWithPredicate> query)
+    {
+        return query.Where(r => r.IsDeleted == false);
+    }
+}
+{% endhighlight %}

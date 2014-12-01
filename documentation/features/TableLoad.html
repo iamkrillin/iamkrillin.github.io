@@ -1,4 +1,41 @@
 ---
 layout: documentation
-title: SauceDB
+title: Load Table Data
 ---
+<h3>Load Table Data</h3>
+<span style="margin-bottom: 20px;">
+
+</span>
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Configuration;
+using DataAccess.Core;
+using DataAccess.SqlServer;
+using DataAccess.Core.Interfaces;
+
+namespace SauceExample
+{
+  public class CrudClass
+  {
+    public static IDataStore _dstore; //I recommend keeping the reference around
+
+    static CrudClass()
+    {
+      _dstore = SqlServerConnection.GetDataStore(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString);
+    }
+
+    [STAThread]
+    public static void Main(string[] args)
+    {
+      for (int i = 0; i < 10; i++) //create ten objects
+        _dstore.InsertObject(new MyObject() { Name = Guid.NewGuid().ToString() });
+
+      //Load the entire table back
+      IList<MyObject> items = _dstore.LoadEntireTable<MyObject>();
+    }
+  }
+}
+{% endhighlight %}

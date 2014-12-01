@@ -1,4 +1,82 @@
 ---
 layout: documentation
-title: SauceDB
+title: Migrations
 ---
+<h3>Migrations</h3>
+<span style="margin-bottom: 20px;">
+	Sauce now ships with a database migrator.<br />
+	Note: Only one way migrations are supported.
+</span>
+
+<span style="margin-bottom: 20px;">
+	A Migration is defined as one or more of the following things.
+	<ul>
+		<li>Add a table(s) </li>
+		<li>Remove a table(s) </li>
+		<li>Add a column(s) to an existing table </li>
+		<li>Remove a column(s) from an existing table </li>
+		<li>Change Column(s) types </li>
+		<li>Execute arbitrary database commands</li>
+	</ul>
+</span>
+
+
+<span style="margin-bottom: 20px;">
+	In order to set this up, do the following things.
+	<ol>
+		<li>setup a new project in your solution</li>
+		<li>Remove a table(s)</li>
+		<li>Add a column(s) to an existing table</li>
+		<li>Remove a column(s) from an existing table</li>
+		<li>Change Column(s) types</li>
+		<li>Execute arbitrary database commands</li>
+	</ol>
+</span>
+
+<div id="#setupProject">
+	<span style="margin-bottom: 20px;">
+		After you create your new project (class lib) <br />
+		copy DataAccess.Migrations.exe into your project.
+	</span>	
+	<span style="margin-bottom: 20px;">
+		<strong>Set required some properties</strong>
+		<ul>
+			<li>Start External Program: &lt;path to project&gt;\bin\Debug\DataAccess.Migrations.exe</li>
+			<li>Command Line Arguments: Path:&lt;path to project&gt;\bin\Debug\Migrations.dll</li>
+		</ul>
+	</span>	
+
+	<span style="margin-bottom: 20px;">
+		<strong>Add Requried References</strong>
+		<ul>
+			<li>DataAccess.Migrations.exe </li>
+			<li>Whatever is required for your datastore (in the example mysql)</li>
+		</ul>
+	</span>	
+
+	<span style="margin-bottom: 20px;">
+		<strong>Add a file to setup your migrator</strong>
+		<span style="margin-bottom: 20px;">In this file, inherit from DBMigrator and implement GetDataStore()</span>
+		{% highlight csharp %}
+namespace Migrations
+{
+    public class Migrator : DBMigrator
+    {
+        protected override IDataStore GetDataStore()
+        {
+            return new MySqlDataStore(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
+        }
+    }
+}
+		{% endhighlight %}
+	</span>	
+
+	<span style="margin-bottom: 20px;">
+		<strong>Run Migrations</strong>
+		<span style="margin-bottom: 20px;">In this file, inherit from DBMigrator and implement GetDataStore()</span>
+			Add a code file to your migrations folder for each migration you want to run, give it a name and inherit from DBMigration.<br />
+			After you have done this implement the functions you need, when you run the project it will perform the migrations for you.
+		</span>
+	</span>	
+</div>
+

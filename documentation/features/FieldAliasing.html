@@ -1,4 +1,27 @@
 ---
 layout: documentation
-title: SauceDB
+title: Field Aliasing
 ---
+<h3>Field Aliasing</h3>
+<span style="margin-bottom: 20px;">
+	Sauce assumes that all columns are named as they will appear in the Databse.<br />
+	This can be changed on a per property basis
+</span>
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  public class MyObject
+  {
+    public int id { get; set; }
+    
+    [DataField(FieldName="AnotherField")]
+    public string Name { get; set; }
+  }
+}
+{% endhighlight %}

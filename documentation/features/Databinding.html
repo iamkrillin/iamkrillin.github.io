@@ -1,4 +1,48 @@
 ---
 layout: documentation
-title: SauceDB
+title: Databinding
 ---
+<h3>Databinding</h3>
+<span style="margin-bottom: 20px;">
+	Simply add the DataAccess.DataBinding assembly to your project, then bind your list.<br />
+	Changes you make to your list will automatically be replicated to the datastore (add, delete).<br />	
+	If the objects in the list implement INotifyPropertyChanged Changes to the object will be replicated as well<br />
+</span>
+{% highlight csharp %}
+using ConnectionManagement.Data;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using DataAccess;
+
+namespace ConnectionManagement
+{
+    /// <summary>
+    /// Interaction logic for AddDatabase.xaml
+    /// </summary>
+    public partial class AddDatabase : Window
+    {
+        private ObservableCollection<Database> data;
+        public AddDatabase()
+        {
+            InitializeComponent();
+
+            data = new ObservableCollection<Database>();
+            this.GetDataStore().BindCollection(data);
+
+            ServerList.ItemsSource = data;
+        }
+    }
+}
+{% endhighlight %}

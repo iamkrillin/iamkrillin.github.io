@@ -1,4 +1,42 @@
 ---
 layout: documentation
-title: SauceDB
+title: Stored Procedures
 ---
+<h3>Stored Procedures</h3>
+<span style="margin-bottom: 20px;">
+	There are two methods to call stored procedures.  One is very close to ADO.net while the other adds some helpers on top of it.
+</span>
+
+<h4>Method 1</h4>
+<span style="margin-bottom: 20px;">
+	Using this method you have complete control over the Database command, and whatever you generate will be passed directly to the database.
+</span>
+
+{% highlight csharp %}
+IDbCommand cmd = _dstore.Connection.GetCommand();
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.CommandText = "foo";
+cmd.Parameters.Add(_dstore.Connection.GetParameter("@parm1", "Hello"));
+
+//if you are using the extension lib you can do this..
+cmd.AddParameter("@parm2", "hello");
+
+//to execute it you simply do (as appropriate)
+_dstore.ExecuteCommand(cmd);
+_dstore.ExecuteCommandLoadList<MyObject>(cmd);
+_dstore.ExecuteCommandLoadObject<MyObject>(cmd);
+{% endhighlight %}
+
+
+<h4>Method 2</h4>
+<span style="margin-bottom: 20px;">
+	Using this method parameters and such are generated on your behalf.
+</span>
+
+{% highlight csharp %}
+DatabaseCommand<MyObject> cmd = _dstore.GetCommand<MyObject>();
+
+//as appropriate
+List<MyObject> result = cmd.ExecuteStoredProcedure("foo", new { name = "chicken" });
+MyObject result = cmd.ExecuteStoredProcedureGetObject("foo", new { name = "chicken" });
+{% endhighlight %}

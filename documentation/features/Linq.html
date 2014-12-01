@@ -1,4 +1,19 @@
 ---
 layout: documentation
-title: SauceDB
+title: Linq 
 ---
+<h3>Linq</h3>
+<span style="margin-bottom: 20px;">
+	Sauce implemented a full IQueryable provider for all supported datastores<br />
+	Just like the rest of sauce, no code generation is required.
+</span>
+{% highlight csharp %}
+var result = from i in dStore.Query<TestItemForeignKeyWithString>()
+			 join x in dStore.Query<TestItemPrimaryKey>() on i.FKeyField equals x.ID
+			 select new
+				{
+					i.ID,
+					x.Name,
+					x.Date
+				};	
+{% endhighlight %}

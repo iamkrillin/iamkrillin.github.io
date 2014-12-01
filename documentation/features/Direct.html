@@ -1,4 +1,38 @@
 ---
 layout: documentation
-title: SauceDB
+title: Direct DB Access
 ---
+<h3>Direct DB Access</h3>
+<span style="margin-bottom: 20px;">
+	There are two methods to send raw database commands.  One is very close to ADO.net while the other adds some helpers on top of it.
+</span>
+
+<h4>Method 1</h4>
+<span style="margin-bottom: 20px;">
+	Using this method you have complete control over the Database command, and whatever you generate will be passed directly to the database.
+</span>
+
+{% highlight csharp %}
+IDbCommand cmd = _dstore.Connection.GetCommand();
+cmd.CommandText = "select * from foo;";
+cmd.Parameters.Add(_dstore.Connection.GetParameter("@parm1", "Hello"));
+
+//if you are using the extension lib you can do this..
+cmd.AddParameter("@parm2", "hello");
+
+//to execute it you simply do (as appropriate)
+_dstore.ExecuteCommand(cmd);
+_dstore.ExecuteCommandLoadList<MyObject>(cmd);
+_dstore.ExecuteCommandLoadObject<MyObject>(cmd);
+{% endhighlight %}
+
+
+<h4>Method 2</h4>
+<span style="margin-bottom: 20px;">
+	Using this method parameters and such are generated on your behalf.  You can also use this method to call stored procedures
+</span>
+
+{% highlight csharp %}
+DatabaseCommand<MyObject> cmd = _dstore.GetCommand<MyObject>();
+MyObject result = cmd.ExecuteQuery("select * from food where name=@name", new { name = "chicken" });
+{% endhighlight %}

@@ -1,4 +1,16 @@
 ---
 layout: documentation
-title: SauceDB
+title: Load From Views
 ---
+<h3>Load From Views</h3>
+<span style="margin-bottom: 20px;">
+	In order to load from a view all you have to do is tell sauce you are using a view<br />
+	NOTE: This is not required if you have schema validation turned off.
+</span>
+{% highlight csharp %}
+[View]
+public class ViewObject
+{
+    public string TestItemPrimaryKeyName { get; set; }
+}   
+{% endhighlight %}

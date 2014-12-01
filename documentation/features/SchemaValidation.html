@@ -1,4 +1,72 @@
 ---
 layout: documentation
-title: SauceDB
+title: Schema Validation
 ---
+<h3>Schema Validation</h3>
+<span style="margin-bottom: 20px;">
+	Sauce ships with 4 different schema validators.<br />
+	The default is the "ModifyValidator"
+</span>
+
+<h3>Modify Validator</h3>
+<span style="margin-bottom: 20px;">
+	This validator will modify the underlying database structure to match your data models.<br />
+	In order to use it, just create your datastore and pass objects to it.<br />
+
+	<div>
+		This validator knows how to...
+		<ul>
+			<li>Add tables</li>
+			<li>Add schemas</li>
+			<li>Remove Columns (This is disabled by default)</li>
+			<li>Add Columns</li>
+			<li>Modify Columns</li>
+		</ul>
+	</div>
+</span>
+
+<h3>Notify Validator</h3>
+<span style="margin-bottom: 20px;">
+	This validator will make zero changes to the underlying datastore,<br />
+ 	but it will read the schema data and verify that the object mathes the datastore.<br />
+
+ 	If this fails an error or the following type will be generated
+ 	<ul>
+	 	<li>A Table {0} was requested but was not found in the datastore</li>
+		<li>A column ({0}) was requested on table {1} by object type {2}, however, it is not present in the datastore</li>
+		<li>The view {0} is missing the following columns {1}</li>
+		<li>The view requested by {0} ({1}) was not found</li>
+	</ul>
+
+</span>
+
+<h3>Does Nothing Validator</h3>
+<span style="margin-bottom: 20px;">
+	As the name implies, this validator will do nothing.
+</span>
+
+<h3>Change Validators</h3>
+<span style="margin-bottom: 20px;">
+	In order to change the validators just specify it after you create your datastore.
+</span>
+
+{% highlight csharp %}
+IDataStore dstore;
+//create store
+dstore.SchemaValidator = new DoesNothingValidator();
+dstore.SchemaValidator = new NotifyValidator(dStore);
+{% endhighlight %}
+
+<h3>Validation Options</h3>
+<span style="margin-bottom: 20px;">
+	You can also change up how the validators are allowed to behave
+</span>
+
+{% highlight csharp %}
+IDataStore dstore;
+//create store
+
+dstore.SchemaValidator.CanAddColumns = false;
+dstore.SchemaValidator.CanRemoveColumns = false;
+dstore.SchemaValidator.CanUpdateColumns = false;
+{% endhighlight %}

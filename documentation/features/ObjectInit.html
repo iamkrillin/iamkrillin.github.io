@@ -1,4 +1,68 @@
 ---
 layout: documentation
-title: SauceDB
+title: Object Initialization
 ---
+<h3>Object Initialization</h3>
+<span style="margin-bottom: 20px;">
+	In order for this to work you define a method on the object (private or public dont matter) <br/>
+	This method can either have no arguments or one argument of type IDataStore
+</span>
+
+<h4>Method One</h4>
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  public class MyObject
+  {
+    public int id { get; set; }
+
+    [DataField(DefaultValue="Bob")]
+    public string Name { get; set; }
+
+    [IgnoredField]
+    public int Length { get; set; }
+    
+    [AdditionalInit]
+    public void CallMeWhenLoaded()
+    {
+      Length = Name.Length;
+    }
+  }
+}
+{% endhighlight %}
+
+<h4>Method Two</h4>
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  public class MyObject
+  {
+    public int id { get; set; }
+
+    [DataField(DefaultValue="Bob")]
+    public string Name { get; set; }
+
+    [IgnoredField]
+    public int Length { get; set; }
+    
+    [AdditionalInit]
+    public void CallMeWhenLoaded(IDataStore foo)
+    {
+       //foo is the dstore that loaded the object
+       //do whatever with it
+    }
+  }
+}
+{% endhighlight %}

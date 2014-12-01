@@ -1,4 +1,28 @@
 ---
 layout: documentation
-title: SauceDB
+title: Schema Support
 ---
+<h3>Schema Support</h3>
+<span style="margin-bottom: 20px;">
+	Sauce assumes that all objects are stored in the users default schema<br />
+	On database that do not support schemas, a the table is named as follows<br />
+	$(schema)_$(table)<br />
+	You can change the schema on a per object basis
+</span>
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  [TableName(Schema="SomeOtherScheama")]
+  public class MyObject
+  {
+    public int id { get; set; }
+    public string Name { get; set; }
+  }
+}
+{% endhighlight %}
