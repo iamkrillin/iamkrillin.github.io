@@ -2,3 +2,74 @@
 layout: documentation
 title: SauceDB
 ---
+
+<h3>Custom Column Loading</h3>
+<span style="margin-bottom: 20px;">
+	Sauce will assume that there is only one primary key and its name is ID<br/>
+
+	This can be changed on a per object basis<br />
+	You can also use this technique to specify more than one.
+</span>
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  public class MyObject
+  {
+    [Key]
+    public int keyOne { get; set; }
+
+    [Key]
+    public int keyTwo { get; set; }
+    
+    public string Name { get; set; }
+  }
+}
+{% endhighlight %}
+
+
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  public class MyObject
+  {
+    public int id { get; set; } //this is a primary key
+
+    [Key]
+    public int keyTwo { get; set; } //this is a primary key too
+    
+    public string Name { get; set; }
+  }
+}
+{% endhighlight %}
+
+
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  public class MyObject
+  {
+    [Key]
+    public int key { get; set; }
+    
+    public string Name { get; set; }
+  }
+}
+{% endhighlight %}

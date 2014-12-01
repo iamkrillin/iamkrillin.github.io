@@ -2,3 +2,29 @@
 layout: documentation
 title: SauceDB
 ---
+<h3>Foreign Keys</h3>
+<span style="margin-bottom: 20px;">
+	Sauce will assume there are no foreign keys unless you tell it otherwise.<br />
+	NOTE: This is not enforced by SauceDB
+</span>
+
+{% highlight csharp%}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Core.Attributes;
+
+namespace SauceExample
+{
+  public class MyObject
+  {
+    public int id { get; set; }
+
+    [DataField(PrimaryKeyType = typeof(OtherObject))]
+    public int MyRelatedObject { get; set; }
+ 
+   public string Name { get; set; }
+  }
+}
+{% endhighlight %}
