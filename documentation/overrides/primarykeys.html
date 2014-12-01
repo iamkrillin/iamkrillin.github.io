@@ -1,15 +1,18 @@
 ---
 layout: documentation
-title: SauceDB
+title: Primary Keys
 ---
 
-<h3>Custom Column Loading</h3>
+<h3>Primary Keys</h3>
 <span style="margin-bottom: 20px;">
 	Sauce will assume that there is only one primary key and its name is ID<br/>
 
 	This can be changed on a per object basis<br />
 	You can also use this technique to specify more than one.
 </span>
+
+
+<h4>Two Primary Keys</h4>
 {% highlight csharp %}
 using System;
 using System.Collections.Generic;
@@ -33,6 +36,7 @@ namespace SauceExample
 {% endhighlight %}
 
 
+<h4>Two Primary Keys (one specified one inferred)</h4>
 {% highlight csharp %}
 using System;
 using System.Collections.Generic;
@@ -54,7 +58,7 @@ namespace SauceExample
 }
 {% endhighlight %}
 
-
+<h4>One Primary Keys</h4>
 {% highlight csharp %}
 using System;
 using System.Collections.Generic;
